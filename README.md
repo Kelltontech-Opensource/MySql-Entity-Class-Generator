@@ -1,0 +1,1 @@
+# MySql-Entity-Class-Generator

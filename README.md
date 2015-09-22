@@ -25,7 +25,7 @@ The MySQL database table that is wrapped must have one auto-increment primary ke
 ### download from github change your database config file class.database.php
 
 ## Requirement 
-  * ** ** PHP , MYSQL. 
+  *  PHP , MYSQL. 
 
 ## End 
                   

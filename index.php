@@ -3,13 +3,15 @@ include("resources/class.database.php");
 $database = new Database("drupal_main");
 /*
 *
-*@Created By : Durgesh 
+*@Created By : Durgesh / updated By swapnil
 *@Description: This package can be used to generate classes that wrap rows of MySQL database tables
  providing an object oriented interface to manipulate the table row data.
 *@date :22.09.2015
-*
+*@lastupdated : 15.10.2015
 */
-
+if(!is_writable(dirname(__FILE__))){
+    echo ('This Directory does not have write permissions, It may cause permission denial, Please give write permissions.');
+}
 if (@$_REQUEST["f"] == "") {
     ?>
 
@@ -88,6 +90,10 @@ if (@$_REQUEST["f"] == "") {
 // if file exists, then delete it
         if (file_exists($filename)) {
             unlink($filename);
+        }else{
+            if(!mkdir($dir . "/entities/", 0777, true)){
+                echo ('Failed to create folders...');
+            }
         }
 
 // open file in insert mode
@@ -290,8 +296,8 @@ back
         ?>
     <p>
         <font size="1" face="Arial">
-        <a href="http://www.voegeli.li" target="_blank">
-            this is a script from www.voegeli.li
+        <a href="http://www.kelltontech.com" target="_blank">
+            this is a script from www.kelltontech.com
         </a>
         </font>
 

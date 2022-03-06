@@ -48,36 +48,37 @@
  
  function OpenLink()
  { // Method : begin
-  $this->link = @mysql_connect($this->host,$this->user,$this->password) or die (print "Class Database: Error while connecting to DB (link)");
+  $this->link = mysqli_connect($this->host,$this->user,$this->password) or die (print "Class Database: Error while connecting to DB (link)");
+  $this->SelectDB();
  } // Method : end
  
  function SelectDB()
  { // Method : begin
  
- @mysql_select_db($this->database,$this->link) or die (print "Class Database: Error while selecting DB");
+ mysqli_select_db($this->link, $this->database) or die (print "Class Database: Error while selecting DB");
   
  } // Method : end
  
  function CloseDB()
  { // Method : begin
- mysql_close();
+ mysqli_close($this->link);
  } // Method : end
  
  function Query($query)
  { // Method : begin
- $this->OpenLink();
- $this->SelectDB();
- $this->query = $query;
- $this->result = mysql_query($query,$this->link) or die (print "Class Database: Error while executing Query");
- 
-// $rows=mysql_affected_rows();
+    $this->OpenLink();
+    $this->SelectDB();
+    $this->query = $query;
+    $this->result = mysqli_query($this->link, $query) or die (print "Class Database: Error while executing Query");
+    
+    // $rows=mysql_affected_rows();
 
-if(ereg("SELECT",$query))
-{
- $this->rows = mysql_num_rows($this->result);
-}
- 
- $this->CloseDB();
+    if(preg_match("/(SELECT)/",$query))
+    {
+        $this->rows = mysqli_num_rows($this->result);
+    }
+    
+    $this->CloseDB();
  } // Method : end	
   
  } // Class : end

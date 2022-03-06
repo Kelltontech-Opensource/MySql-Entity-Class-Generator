@@ -31,8 +31,8 @@ if (@$_REQUEST["f"] == "") {
 
                 <?php
                 $database->OpenLink();
-                $tablelist = mysql_list_tables($database->database, $database->link);
-                while ($row = mysql_fetch_row($tablelist)) {
+                $tablelist = mysqli_query($database->link, "SHOW TABLES");
+                while ($row = mysqli_fetch_row($tablelist)) {
                     print "<option value=\"$row[0]\">$row[0]</option>";
                 }
                 ?>
@@ -131,7 +131,7 @@ class $class
         $result = $database->result;
 
 
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $col = $row['Field'];
 
 
@@ -187,7 +187,7 @@ public function __construct($key_row=NULL)
         $sql = "SHOW COLUMNS FROM $table;";
         $database->query($sql);
         $result = $database->result;
-        while ($row = mysql_fetch_array($result)) {        //echo "<pre>"; print_r($row);
+        while ($row = mysqli_fetch_array($result)) {        //echo "<pre>"; print_r($row);
             $col = $row['Field'];
             if (!in_array($col, $exFields)) {
                 if ($row['Field'] == "org_id") {
@@ -219,7 +219,7 @@ public function __construct($key_row=NULL)
 // GETTER
         $database->query($sql);
         $result = $database->result;
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $col = $row['Field'];
             $mname = "get" . $col . "()";
             $mthis = "$" . "this->" . $col;
@@ -246,7 +246,7 @@ public function $mname
 // SETTER
         $database->query($sql);
         $result = $database->result;
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $col = $row['Field'];
              if (is_null($row['Default'])) {
                   $val = "!isset($" . "val->" . $col . ") ? NULL : " . "$" . "val->" . $col;
